@@ -164,9 +164,10 @@ page.preferredPrefix | upcase %} {% if upperPrefix != page.preferredPrefix %}
           {% for p in page.products %}
           <tr>
             <td>
-              <a href="https://purl.obolibrary.org/obo/{{p.id}}">{{p.id}}</a>
+              <a href="{% if p.ontology_purl %}{{p.ontology_purl}}{% else %}{{page.uri_prefix}}{{p.id}}{% endif %}">{{p.id}}</a>
             </td>
             <td>{{p.title}}</td>
+            <td>Aggregator: {{p.aggregator}}</td>
             <td>
               {{p.description}} {% if p.page %}
               <a href="{{p.page}}"> [page]</a>
@@ -229,11 +230,9 @@ page.preferredPrefix | upcase %} {% if upperPrefix != page.preferredPrefix %}
         {{page.id}}
       </dd>
 
-      <dt>PURL</dt>
+      <dt>Expansion</dt>
       <dd>
-        <a href="http://purl.obolibrary.org/obo/{{page.id}}.owl"
-          >http://purl.obolibrary.org/obo/{{page.id}}.owl</a
-        >
+        <a href="{{page.uri_prefix}}">{{page.uri_prefix}}</a>
       </dd>
 
       <dt>License</dt>

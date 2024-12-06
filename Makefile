@@ -243,3 +243,5 @@ jenkins-output.txt:
 
 reports/%.csv: registry/ontologies.ttl sparql/%.sparql
 	arq --data $< --query sparql/$*.sparql --results csv > $@.tmp && mv $@.tmp $@
+
+#include kg.Makefile

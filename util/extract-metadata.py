@@ -179,8 +179,13 @@ def concat_ont_yaml(args):
         in which case it is effectively ignored).
         """
         id = obj.get("id") or "None"
-        if "is_obsolete" not in obj and has_obo_prefix(obj):
-            obj["ontology_purl"] = "http://purl.obolibrary.org/obo/" + id + suffix
+        if not obj.get("ontology_purl"):
+            if "is_obsolete" not in obj:
+                if has_obo_prefix(obj):
+                    obj["ontology_purl"] = "http://purl.obolibrary.org/obo/" + id + suffix
+                else:
+                    if "uri_prefix" in obj:
+                        obj["ontology_purl"] = obj["uri_prefix"] + id + suffix
 
     def decorate_metadata(objs):
         """
